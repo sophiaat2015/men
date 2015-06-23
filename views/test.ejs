@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>这是一个测试页面。</p>
+    <div>
+        <select id="select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </div>
+    <pre id="pre-json">
+        
+    </pre>
+  </body>
+</html>
+
+
+<script type="text/javascript" src="/javascripts/zepto.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('#select').change(function(event){
+        var val = $('#select').val();
+        $.ajax({
+            url: '/test/user/select/' + val,
+            type: 'get',
+            success: function(data){
+                $('#pre-json').html(data.msg);
+            }
+        });
+    });
+});
+</script>
