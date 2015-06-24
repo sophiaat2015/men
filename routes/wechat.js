@@ -30,22 +30,22 @@ var config = {
 /*  */
 router.get('/', function(req, res, next) {
     var url_parts = url.parse(req.url, true);
-    var query = url_parts.query;
+    var query = req.query;
     var checkResult = false;
 
-    var signature = query.signature;
-    var timestamp = query.timestamp;
-    var nonce     = query.nonce;
-    var echostr   = query.echostr;
+    var signature = query.signature || '';
+    var timestamp = query.timestamp || '';
+    var nonce     = query.nonce || '';
+    var echostr   = query.echostr || '';
 
     var token = config.token;
-    checkResult = checkSignature(signature, timestamp, nonce, token
+    checkResult = checkSignature(signature, timestamp, nonce, token);
 
     if (checkResult) {
         res.send(echostr);
     }else{
         console.log('微信接入验证失败');
-        res.send(null);
+        res.send('ok, I will try again.');
     }
 });
 
