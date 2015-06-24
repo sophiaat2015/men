@@ -10,6 +10,7 @@
     <p>Welcome to <%= title %></p>
     <p>这是一个测试页面。</p>
     <div>
+        <label>请选择用户ID</label>
         <select id="select">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -17,6 +18,7 @@
             <option value="4">4</option>
         </select>
     </div>
+    <p>服务器响应：</p>
     <pre id="pre-json">
         
     </pre>
@@ -33,7 +35,7 @@ $(function(){
             url: '/test/user/select/' + val,
             type: 'get',
             success: function(data){
-                $('#pre-json').html(data.msg);
+                $('#pre-json').html(JSON.stringify(data.msg));
             }
         });
     });
