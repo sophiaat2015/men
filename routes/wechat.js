@@ -29,8 +29,9 @@ var config = {
 
 /*  */
 router.get('/', function(req, res, next) {
-    var url_parts = url.parse(request.url, true);
+    var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
+    var checkResult = false;
 
     var signature = query.signature;
     var timestamp = query.timestamp;
@@ -38,8 +39,9 @@ router.get('/', function(req, res, next) {
     var echostr   = query.echostr;
 
     var token = config.token;
+    checkResult = checkSignature(signature, timestamp, nonce, token
 
-    if (checkSignature(signature, timestamp, nonce, token)) {
+    if (checkResult) {
         res.send(echostr);
     }else{
         console.log('微信接入验证失败');
